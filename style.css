@@ -1,0 +1,42 @@
+
+
+body{
+    margin: 0;
+    padding: 0;
+    background-color: rgb(43,40,187); 
+    background: linear-gradient(180deg, rgba(43,40,187,1) 0%, rgba(117,19,210,1) 100%);
+    background-repeat: no-repeat;
+    height: 100vh;
+    width: 100vw;
+}
+
+#main{
+    background-color: rgba(255, 255, 255, 0.63);
+    border: 10px;
+    border-radius: 10px;
+    margin: 5%;
+    padding: 10px;
+}
+
+div.navbar-icon{
+    width: 20%;
+}
+
+input.btn{
+    background-color: #d4055f;
+    color: white;
+}
+
+input.btn:hover{
+    background-color: #E90064;
+    color: white;
+}
+
+input.form-control{
+    background-color: rgba(245, 245, 245, 0.747);
+}
+
+input.form-control:focus{
+    background-color: rgb(245, 245, 245);
+}
+
