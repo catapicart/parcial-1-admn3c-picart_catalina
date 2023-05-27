@@ -75,3 +75,11 @@ input.form-control:focus{
     width: 45%;
     margin: auto;
 }
+
+.btn-nosuccess{
+    background-color: rgb(2, 100, 2);
+}
+
+.btn-nodanger{
+    background-color: rgb(175, 10, 10);
+}

@@ -28,7 +28,7 @@
     
 
     <form action="">
-    <pregunta-quiz v-for="pregunta in preguntas" :key="pregunta.id" :pregunta="pregunta.pregunta" :icono="pregunta.icono" :alt="pregunta.alt" :name="pregunta.id" :id="pregunta.id"></pregunta-quiz>
+    <pregunta-quiz v-for="pregunta in preguntas" :key="pregunta.id" :pregunta="pregunta.pregunta" :icono="pregunta.icono" :alt="pregunta.alt" :name="pregunta.id" :id="pregunta.id" :valor-correcto="pregunta.valorCorrecto"></pregunta-quiz>
     <input class="btn" type="submit" value="Ver resultado">
     </form>
 

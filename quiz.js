@@ -3,9 +3,22 @@ Vue.component('pregunta-quiz',{
     props: ['id', 'pregunta', 'respuesta', 'valorCorrecto', 'categoria', 'icono', 'alt'],
     data: function(){
         return{
-            respuestas: []
+            respuestas: [],
         }
     },
+    updated() {
+            if(this.respuestas.length != 0){
+                console.log(this.respuestas)
+                console.log(this.id)
+                console.log(this.valorCorrecto)
+
+                if (this.respuestas === this.valorCorrecto) {
+                    console.log('correcto')
+                }else{
+                    console.log('mal')
+                }
+            }
+   },
     template: `
         <div class="pregunta" :id='id'>
             <div class="d-flex flex-row mb-3">
@@ -13,8 +26,8 @@ Vue.component('pregunta-quiz',{
                 <div class="img-container"><img v-bind:src='icono' :alt='alt'></div>
             </div>
             <div class="botones">
-            <label class="btn btn-success boton"><input type="radio" value="verdadero" :name='id' v-model="respuestas" class="btn-check" >Verdadero</label>
-            <label class="btn btn-danger boton"><input type="radio" value="falso" :name='id' v-model="respuestas" class="btn-check" >Falso</label>
+            <label class="btn boton btn-${this.seleccionado ? 'success' : 'nosuccess'}"><input type="radio" value="verdadero" :name='id' v-model="respuestas" class="btn-check">Verdadero</label>
+            <label class="btn boton btn-${this.seleccionado ? 'danger' : 'nodanger'}"><input type="radio" value="falso" :name='id' v-model="respuestas" class="btn-check">Falso</label>
             </div>
         </div>`
 })
@@ -100,8 +113,9 @@ let app = new Vue({
             var nombre = document.getElementById("name").value;
             localStorage.setItem("name", nombre);
            
-        }
-    },
+        },
+        
+    }
     
 
 })
