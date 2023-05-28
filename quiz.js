@@ -1,6 +1,6 @@
 
 Vue.component('pregunta-quiz',{
-    props: ['id', 'pregunta', 'respuesta', 'valorCorrecto', 'categoria', 'icono', 'alt', 'mostrarRta'],
+    props: ['id', 'pregunta', 'respuesta', 'valorCorrecto', 'categoria', 'icono', 'alt', 'mostrarRta', 'categoriaSeleccionada'],
     data: function(){
         return{
             respuestas: [],
@@ -51,6 +51,15 @@ Vue.component('mensaje-bienvenida',{
 
 })
 
+Vue.component('botones-categoria',{
+    template: `<div>
+    <input type="button" class="btn" value="Todas" @click="categoriaDefault">
+    <input type="button" class="btn" value="Programacion" @click="categoriaCultura">
+    <input type="button" class="btn" value="Programacion" @click="categoriaCiencia">
+    <input type="button" class="btn" value="Programacion" @click="categoriaProgramacion">
+    </div>`,
+    props: ['categoriaProgramacion', 'categoriaDefault', 'categoriaCultura', 'categoriaCiencia']
+})
 
 let app = new Vue({
 
@@ -113,7 +122,7 @@ let app = new Vue({
             }
         ],
         mostrarRta: false,
-        arrayRtas: []
+        categoriaSeleccionada: 'default'
     },
   
     methods: {
@@ -126,6 +135,18 @@ let app = new Vue({
         mostrarRespuesta(){
             console.log('mostrando rta')
             mostrarRta = true;
+        },
+        categoriaProgramacion(){
+            this.categoriaSeleccionada = 'programacion'
+        },
+        categoriaDefault(){
+            this.categoriaSeleccionada = 'default'
+        },
+        categoriaCiencia(){
+            this.categoriaSeleccionada = 'ciencia'
+        },
+        categoriaCultura(){
+            this.categoriaSeleccionada = 'cultura'
         },
         conseguirRta(){
             for (i = 1; i <= localStorage.length; i++) {
