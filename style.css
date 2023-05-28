@@ -76,19 +76,8 @@ input.form-control:focus{
     margin: auto;
 }
 
-.btn-nosuccess{
-    background-color: rgb(30, 92, 30);
-}
 
-.btn-nodanger{
-    background-color: rgb(175, 10, 10);
-}
-
-input:required {
-    background-color: red;
-}
-
-button .active{
+button{
     background-color: #d4055f;
     color: white;
 }

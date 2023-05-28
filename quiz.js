@@ -8,29 +8,21 @@ Vue.component('pregunta-quiz',{
     },
     updated() {
          if(this.respuestas.length != 0){
-             console.log(this.respuestas)
-             console.log(this.id)
-             console.log(this.valorCorrecto)
-             localStorage[`respuesta${this.id}`] = this.respuestas;
-             respuestasCorrectas = 0;
-             respuestasIncorrectas = 0;
              contenedor = document.getElementById(`${this.id}`)
              respuestaFinal = `<div id="rta">
              <p class="text-center pt-2">Es ${this.valorCorrecto}</p>
              <p class="text-center pb-2 px-3">${this.respuesta}</p></div>`
              contenedor.innerHTML += respuestaFinal;
+
              if (this.respuestas === this.valorCorrecto) {
+                localStorage[`respuesta${this.id}`] = 'Correcta';
                 calificacion = `<h4 class="text-success text-center">Correcto</h4>`
                 contenedor.innerHTML += calificacion;
-                 respuestasCorrectas ++;
-                 console.log('correctas',respuestasCorrectas)
                 
              }else{
+                localStorage[`respuesta${this.id}`] = 'Incorrecta';
                 calificacion = `<h4 class="text-danger text-center">Incorrecto</h4>`
                 contenedor.innerHTML += calificacion;
-                 respuestasIncorrectas ++;
-                 console.log('mal')
-                 console.log('incorrectas', respuestasIncorrectas)
              }
          }
    },
@@ -52,23 +44,12 @@ Vue.component('mensaje-bienvenida',{
         var saludo = document.getElementById("saludo");
         var datoGuardado = localStorage.getItem("name");
         var nombreMay = datoGuardado[0].toUpperCase() + datoGuardado.substring(1);
-        saludo.innerHTML = `<p class="p-3 text-center">¡Genial ${nombreMay}! Es momento de jugar, lee la pregunta atentamente y contesta verdadero o falso, clickea "Ver respuesta" para ver como te fue. ¡Buena suerte! </p> `;
+        saludo.innerHTML = `<p class="p-3 text-center">¡Genial ${nombreMay}! Es momento de jugar, lee la pregunta atentamente y contesta verdadero o falso. ¡Buena suerte! </p> `;
     },
 
     template: `<div id="saludo"></div>`
 
 })
-
-// Vue.component('botones-categorias', {
-//     props: ['categoria', 'categoriaDefault', 'categoriaCultura', 'categoriaCiencia', 'categoriaProgramacion', 'active', 'noactive'],
-//     template: ` <div>
-//     <button  @click="categoriaDefault">Todos</button>
-//     <button  @click="categoriaCultura">Cultura</button>
-//     <button  @click="categoriaCiencia">Ciencia</button>
-//     <button  @click="categoriaProgramacion">Programación</button>
-//     </div>`
-    
-// })
 
 
 let app = new Vue({
@@ -131,7 +112,8 @@ let app = new Vue({
                 alt: 'Pregunta de programación'
             }
         ],
-        //categoria: "default",
+        mostrarRta: false,
+        arrayRtas: []
     },
   
     methods: {
@@ -141,23 +123,20 @@ let app = new Vue({
             localStorage.setItem("name", nombre);
            
         },
-        categoriaDefault(){
-            this.categoria = "default"
-        },
-        categoriaCultura(){
-            this.categoria = "cultura"
-        },
-        categoriaCiencia(){
-            this.categoria = "ciencia"
-        },
-        categoriaProgramacion(){
-            this.categoria = "programacion"
-        },
         mostrarRespuesta(){
             console.log('mostrando rta')
             mostrarRta = true;
+        },
+        conseguirRta(){
+            for (i = 1; i <= localStorage.length; i++) {
+                resultado = localStorage.getItem(`respuesta${i}`);
+                if (resultado != null) {
+                    string = `Pregunta ${i} ${resultado}`;
+                tablaResultados = `<p class="text-center p-2 m-1 bg-opacity-50 ${resultado == 'Correcta' ? 'bg-success' : 'bg-danger'}" >Pregunta ${i} ${resultado}</p>`
+                listaResultados = document.getElementById('resultados');
+                listaResultados.innerHTML += tablaResultados;
+
+            }}}
         }
-    
-        
-    }
+
     })

@@ -26,11 +26,11 @@
             <mensaje-bienvenida></mensaje-bienvenida>
         </div>
     
-        <!-- <botones-categorias :categoria-default="categoriaDefault" :categoria-cultura="categoriaCultura" :categoria-ciencia="categoriaCiencia" :categoria-programacion="categoriaProgramacion"></botones-categorias> -->
-
-    <pregunta-quiz v-for="pregunta in preguntas" :key="pregunta.id" :pregunta="pregunta.pregunta" :icono="pregunta.icono" :alt="pregunta.alt" :name="pregunta.id" :id="pregunta.id" :valor-correcto="pregunta.valorCorrecto" :categoria="pregunta.categoria" :respuesta="pregunta.respuesta"></pregunta-quiz>
-    
-
+        <form action>
+            <pregunta-quiz v-for="pregunta in preguntas" :key="pregunta.id" :pregunta="pregunta.pregunta" :icono="pregunta.icono" :alt="pregunta.alt" :name="pregunta.id" :id="pregunta.id" :valor-correcto="pregunta.valorCorrecto" :categoria="pregunta.categoria" :respuesta="pregunta.respuesta"></pregunta-quiz>
+            <div class="d-flex align-items-center justify-content-center m-3"><input type="button" class="btn w-75 m-auto" @click="conseguirRta" value="Mostrar tus resultados"></div>
+        </form>
+        <div id="resultados"></div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
     <script src="quiz.js"></script>
