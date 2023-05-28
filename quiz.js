@@ -1,33 +1,48 @@
 
 Vue.component('pregunta-quiz',{
-    props: ['id', 'pregunta', 'respuesta', 'valorCorrecto', 'categoria', 'icono', 'alt'],
+    props: ['id', 'pregunta', 'respuesta', 'valorCorrecto', 'categoria', 'icono', 'alt', 'mostrarRta'],
     data: function(){
         return{
             respuestas: [],
         }
     },
     updated() {
-            if(this.respuestas.length != 0){
-                console.log(this.respuestas)
-                console.log(this.id)
-                console.log(this.valorCorrecto)
-
-                if (this.respuestas === this.valorCorrecto) {
-                    console.log('correcto')
-                }else{
-                    console.log('mal')
-                }
-            }
+         if(this.respuestas.length != 0){
+             console.log(this.respuestas)
+             console.log(this.id)
+             console.log(this.valorCorrecto)
+             localStorage[`respuesta${this.id}`] = this.respuestas;
+             respuestasCorrectas = 0;
+             respuestasIncorrectas = 0;
+             contenedor = document.getElementById(`${this.id}`)
+             respuestaFinal = `<div id="rta">
+             <p class="text-center pt-2">Es ${this.valorCorrecto}</p>
+             <p class="text-center pb-2 px-3">${this.respuesta}</p></div>`
+             contenedor.innerHTML += respuestaFinal;
+             if (this.respuestas === this.valorCorrecto) {
+                calificacion = `<h4 class="text-success text-center">Correcto</h4>`
+                contenedor.innerHTML += calificacion;
+                 respuestasCorrectas ++;
+                 console.log('correctas',respuestasCorrectas)
+                
+             }else{
+                calificacion = `<h4 class="text-danger text-center">Incorrecto</h4>`
+                contenedor.innerHTML += calificacion;
+                 respuestasIncorrectas ++;
+                 console.log('mal')
+                 console.log('incorrectas', respuestasIncorrectas)
+             }
+         }
    },
-    template: `
+    template: ` 
         <div class="pregunta" :id='id'>
             <div class="d-flex flex-row mb-3">
                 <h3 class="h6 p-2">{{pregunta}}</h3>
                 <div class="img-container"><img v-bind:src='icono' :alt='alt'></div>
             </div>
             <div class="botones">
-            <label class="btn boton btn-${this.seleccionado ? 'success' : 'nosuccess'}"><input type="radio" value="verdadero" :name='id' v-model="respuestas" class="btn-check">Verdadero</label>
-            <label class="btn boton btn-${this.seleccionado ? 'danger' : 'nodanger'}"><input type="radio" value="falso" :name='id' v-model="respuestas" class="btn-check">Falso</label>
+            <label class="btn boton btn-success"><input type="radio" value="verdadero" :name='id' v-model="respuestas" class="btn-check" required>Verdadero</label>
+            <label class="btn boton btn-danger"><input type="radio" value="falso" :name='id' v-model="respuestas" class="btn-check">Falso</label>
             </div>
         </div>`
 })
@@ -37,12 +52,23 @@ Vue.component('mensaje-bienvenida',{
         var saludo = document.getElementById("saludo");
         var datoGuardado = localStorage.getItem("name");
         var nombreMay = datoGuardado[0].toUpperCase() + datoGuardado.substring(1);
-        saludo.innerHTML = `<p class="p-3 text-center">¡Genial ${nombreMay}! Es momento de jugar, contesta todas las preguntas y al finalizar clickea "Ver resultados" para chequear tus respuestas. ¡Buena suerte! </p> `;
+        saludo.innerHTML = `<p class="p-3 text-center">¡Genial ${nombreMay}! Es momento de jugar, lee la pregunta atentamente y contesta verdadero o falso, clickea "Ver respuesta" para ver como te fue. ¡Buena suerte! </p> `;
     },
 
     template: `<div id="saludo"></div>`
 
 })
+
+// Vue.component('botones-categorias', {
+//     props: ['categoria', 'categoriaDefault', 'categoriaCultura', 'categoriaCiencia', 'categoriaProgramacion', 'active', 'noactive'],
+//     template: ` <div>
+//     <button  @click="categoriaDefault">Todos</button>
+//     <button  @click="categoriaCultura">Cultura</button>
+//     <button  @click="categoriaCiencia">Ciencia</button>
+//     <button  @click="categoriaProgramacion">Programación</button>
+//     </div>`
+    
+// })
 
 
 let app = new Vue({
@@ -104,7 +130,8 @@ let app = new Vue({
                 icono: 'icons/programacion.png',
                 alt: 'Pregunta de programación'
             }
-        ]
+        ],
+        //categoria: "default",
     },
   
     methods: {
@@ -114,8 +141,23 @@ let app = new Vue({
             localStorage.setItem("name", nombre);
            
         },
+        categoriaDefault(){
+            this.categoria = "default"
+        },
+        categoriaCultura(){
+            this.categoria = "cultura"
+        },
+        categoriaCiencia(){
+            this.categoria = "ciencia"
+        },
+        categoriaProgramacion(){
+            this.categoria = "programacion"
+        },
+        mostrarRespuesta(){
+            console.log('mostrando rta')
+            mostrarRta = true;
+        }
+    
         
     }
-    
-
-})
+    })

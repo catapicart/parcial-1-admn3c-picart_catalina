@@ -26,11 +26,10 @@
             <mensaje-bienvenida></mensaje-bienvenida>
         </div>
     
+        <!-- <botones-categorias :categoria-default="categoriaDefault" :categoria-cultura="categoriaCultura" :categoria-ciencia="categoriaCiencia" :categoria-programacion="categoriaProgramacion"></botones-categorias> -->
 
-    <form action="">
-    <pregunta-quiz v-for="pregunta in preguntas" :key="pregunta.id" :pregunta="pregunta.pregunta" :icono="pregunta.icono" :alt="pregunta.alt" :name="pregunta.id" :id="pregunta.id" :valor-correcto="pregunta.valorCorrecto"></pregunta-quiz>
-    <input class="btn" type="submit" value="Ver resultado">
-    </form>
+    <pregunta-quiz v-for="pregunta in preguntas" :key="pregunta.id" :pregunta="pregunta.pregunta" :icono="pregunta.icono" :alt="pregunta.alt" :name="pregunta.id" :id="pregunta.id" :valor-correcto="pregunta.valorCorrecto" :categoria="pregunta.categoria" :respuesta="pregunta.respuesta"></pregunta-quiz>
+    
 
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
