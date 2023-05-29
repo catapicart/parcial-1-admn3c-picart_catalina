@@ -51,14 +51,21 @@ Vue.component('mensaje-bienvenida',{
 
 })
 
-Vue.component('botones-categoria',{
-    template: `<div>
-    <input type="button" class="btn" value="Todas" @click="categoriaDefault">
-    <input type="button" class="btn" value="Programacion" @click="categoriaCultura">
-    <input type="button" class="btn" value="Programacion" @click="categoriaCiencia">
-    <input type="button" class="btn" value="Programacion" @click="categoriaProgramacion">
-    </div>`,
-    props: ['categoriaProgramacion', 'categoriaDefault', 'categoriaCultura', 'categoriaCiencia']
+
+Vue.component('mensaje-final', {
+    template: `<div id="msj"> <p class="text-center">Gracias por jugar, <span id="nombre"></span></p> <a @click="clearStorage" href="index.html" class="text-center">Volver a jugar→</a> </div>`,
+    mounted() {
+        var datoGuardado = localStorage.getItem("name");
+        var nombreMay = datoGuardado[0].toUpperCase() + datoGuardado.substring(1);
+        var nombre = document.getElementById('nombre');
+        nombre.innerHTML = `${nombreMay}`
+    },
+    props: ['click'],
+    methods: {
+        clearStorage(){
+            localStorage.clear()
+        }
+    }
 })
 
 let app = new Vue({
@@ -122,7 +129,8 @@ let app = new Vue({
             }
         ],
         mostrarRta: false,
-        categoriaSeleccionada: 'default'
+        categoriaSeleccionada: 'default',
+        click : false
     },
   
     methods: {
@@ -149,15 +157,21 @@ let app = new Vue({
             this.categoriaSeleccionada = 'cultura'
         },
         conseguirRta(){
-            for (i = 1; i <= localStorage.length; i++) {
-                resultado = localStorage.getItem(`respuesta${i}`);
-                if (resultado != null) {
-                    string = `Pregunta ${i} ${resultado}`;
-                tablaResultados = `<p class="text-center p-2 m-1 bg-opacity-50 ${resultado == 'Correcta' ? 'bg-success' : 'bg-danger'}" >Pregunta ${i} ${resultado}</p>`
-                listaResultados = document.getElementById('resultados');
-                listaResultados.innerHTML += tablaResultados;
-
-            }}}
+            
+            if(localStorage.length <= 1){
+                this.click= false;
+            }else{
+                this.click = true;
+                for (i = 1; i <= localStorage.length; i++) {
+                    resultado = localStorage.getItem(`respuesta${i}`);
+                    if (resultado != null) {
+                        string = `Pregunta ${i} ${resultado}`;
+                    tablaResultados = `<p class="text-center p-2 m-1 bg-opacity-50 ${resultado == 'Correcta' ? 'bg-success' : 'bg-danger'}" >Pregunta ${i} ${resultado}</p>`
+                    listaResultados = document.getElementById('resultados');
+                    listaResultados.innerHTML += tablaResultados;
+                }}
+            }
+            }
         }
-
+        
     })

@@ -86,3 +86,15 @@ button .noactive{
     background-color: none;
     color: white;
 }
+
+#msj{
+    margin: 30px 20px auto;
+    padding: 30px 10px;
+    background-color: rgba(204, 58, 94, 0.637);
+    text-align: center;
+}
+
+#msj a{
+    color: black;
+
+}

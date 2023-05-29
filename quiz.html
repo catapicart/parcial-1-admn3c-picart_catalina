@@ -25,15 +25,13 @@
             <h1 class="text-center pt-3">Verdadero o Falso</h1>
             <mensaje-bienvenida></mensaje-bienvenida>
         </div>
-    
-        <botones-categoria :categoria-programacion="categoriaProgramacion" :categoria-default="categoriaDefault" :categoria-ciencia="categoriaCiencia" :categoria-cultura="categoriaCultura"></botones-categoria>
 
         <form action>
-            <pregunta-quiz v-for="pregunta in preguntas" :key="pregunta.id" :pregunta="pregunta.pregunta" :icono="pregunta.icono" :alt="pregunta.alt" :name="pregunta.id" :id="pregunta.id" :valor-correcto="pregunta.valorCorrecto" :categoria="pregunta.categoria" :respuesta="pregunta.respuesta" :categoria-seleccionada="categoriaSeleccionada" v-if="pregunta.categoria == categoriaSeleccionada"></pregunta-quiz>
-            <pregunta-quiz v-for="pregunta in preguntas" :key="pregunta.id" :pregunta="pregunta.pregunta" :icono="pregunta.icono" :alt="pregunta.alt" :name="pregunta.id" :id="pregunta.id" :valor-correcto="pregunta.valorCorrecto" :categoria="pregunta.categoria" :respuesta="pregunta.respuesta" :categoria-seleccionada="categoriaSeleccionada" v-else></pregunta-quiz>
+            <pregunta-quiz v-for="pregunta in preguntas" :key="pregunta.id" :pregunta="pregunta.pregunta" :icono="pregunta.icono" :alt="pregunta.alt" :name="pregunta.id" :id="pregunta.id" :valor-correcto="pregunta.valorCorrecto" :categoria="pregunta.categoria" :respuesta="pregunta.respuesta" ></pregunta-quiz>
             <div class="d-flex align-items-center justify-content-center m-3"><input type="button" class="btn w-75 m-auto" @click="conseguirRta" value="Mostrar tus resultados"></div>
         </form>
         <div id="resultados"></div>
+        <mensaje-final :click="click" v-if="click"></mensaje-final>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
     <script src="quiz.js"></script>
