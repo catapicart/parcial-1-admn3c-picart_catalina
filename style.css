@@ -92,6 +92,7 @@ button .noactive{
     padding: 30px 10px;
     background-color: rgba(204, 58, 94, 0.637);
     text-align: center;
+    color: black;
 }
 
 #msj a{

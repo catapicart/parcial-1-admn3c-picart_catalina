@@ -129,7 +129,6 @@ let app = new Vue({
             }
         ],
         mostrarRta: false,
-        categoriaSeleccionada: 'default',
         click : false
     },
   
